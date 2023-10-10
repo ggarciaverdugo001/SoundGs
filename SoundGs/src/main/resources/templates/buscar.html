@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>Resultados de la búsqueda</h2>
+
+<h3>Álbums</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Artista</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="album : ${albums}">
+      <td th:text="${album.nombre}"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+</body>
+</html>

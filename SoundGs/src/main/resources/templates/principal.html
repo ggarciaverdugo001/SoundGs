@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>canciones</title>
+<link rel='stylesheet' href='/webjars/bootstrap/css/bootstrap.min.css'>
+</head>
+<body>
+	<nav
+		class="navbar navbar-expand-lg bg-body-primary sticky-top navbar-dark bg-dark"
+		data-bs-theme="dark">
+		<div class="container-xl">
+			<a class="navbar-brand" href="#">SoundGs</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <h4><a th:href="@{/login}">Click here to Login</a></h4>
+        <a class="nav-link" href="#" th:href="@{/register}">Registrarse</a>
+      </div>
+      
+      <form class="d-flex" role="search" th:action="@{/buscar}" method="get">
+      <input class="form-control me-2" type="text" name="busqueda" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    </div>
+		</div>
+	</nav>
+	
+	
+
+
+	
+	
+	<div class="container-xl" style="margin-top: 2%">
+	<h1>Lista de álbumes</h1>
+	
+	<form id="filtroForm" class="d-flex" role="search" th:action="@{/filtrar}" method="get">
+	<select class="form-select" aria-label="Default select example" name="genero">
+	<option>Todos</option>
+  <option th:each="genero: ${generos}" th:object="${genero}" th:text="*{nombre}">One</option>
+</select>
+ <button class="btn btn-outline-success" type="submit">Filtrar</button></form>
+  <div class="row">
+    <div class="col-3" style="padding:10px" th:each="album: ${albums}" th:object="${album}">
+
+
+				<div class="card h-100" style="padding: 10px ; margin-top : 10px">
+					<img th:src="*{portada}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title" th:text="*{nombre}">Card title</h5>
+						<p class="card-text" th:text=" Año + ': '+ *{#temporals.format(fecha, 'yyyy')}"></p>
+							<a class="btn btn-primary" th:href="@{/} + *{Id} " href="#">
+							Detalle 
+							</a>
+							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group me-2" role="group" aria-label="First group">
+    <a th:href="@{'/valorar/' + *{Id} + '/1'}" href="#"  th:text="*{Id}"><button type="button" class="btn btn-primary">1</button></a>
+    <button type="button" class="btn btn-primary">2</button>
+    <button type="button" class="btn btn-primary">3</button>
+    <button type="button" class="btn btn-primary">4</button>
+  </div>
+					</div>
+				</div>
+		</div>
+    </div>
+     
+  </div>
+
+
+<footer class="bg-dark text-light py-3 mt-3">
+<div class = " container-xl"> &copy; 2023 Gonzalo García-Verdugo </div>
+</footer>
+
+
+
+
+
+	
+
+
+
+<script src="/js/filtro.js"></script>
+
+</body>
+
+
+
+</body>
+</html>

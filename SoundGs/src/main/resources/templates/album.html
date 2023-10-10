@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>canciones</title>
+<link rel='stylesheet' href='/webjars/bootstrap/css/bootstrap.min.css'>
+</head>
+<style>
+ul.csv {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.csv li {
+	display: inline;
+}
+
+ul.csv li:after {
+	content: ", ";
+}
+
+ul.csv li:last-child:after {
+	content: "";
+}
+</style>
+<body>
+	<nav
+		class="navbar navbar-expand-lg bg-body-primary sticky-top navbar-dark bg-dark"
+		data-bs-theme="dark">
+		<div class="container-xl">
+			<a class="navbar-brand" href="#">SoundGs</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <a class="nav-link" href="#">Acceso</a>
+      </div>
+      
+      <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    </div>
+		</div>
+	</nav>
+
+
+
+	<div class="container-xl">
+
+
+
+		<div class="col-9" th:each="detalle :${detalle}"
+			th:object="${detalle}">
+			<div class="card mb-3" style="margin-top: 5%">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img th:src="*{portada}" class="img-fluid rounded-start" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h4 class="card-title" th:text="*{nombre}"></h4>
+							<h6>
+
+								<ul class="csv">
+									Artista:
+									<li th:each="artista : ${detalle.artistas}">
+									 <a th:href="@{/artista/{id}(id=${artista.id})}" th:text="${artista.nombre}"></a>
+									 </li>
+								</ul>
+
+							</h6>
+							<h6>
+
+								<ul class="csv">
+									Genero:
+									<li th:each="genero : ${detalle.generos}"
+										th:text="${genero.nombre}"></li>
+
+								</ul>
+							</h6>
+
+							<h6 th:text=" Año + ': '+ *{#temporals.format(fecha, 'yyyy')}"></h6>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</div>
+	<div class="container-xl">
+
+		<h3>Lista de titulos</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">Título</th>
+					<th scope="col">Audio</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cancion : ${canciones}">
+					<td th:text="${cancion.id}"></td>
+					<td th:text="${cancion.nombre}">Jacob</td>
+					<td><audio controls>
+							<source th:src="*{cancion.audio}">
+						</audio></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+
+
+
+
+
+	<footer class="bg-dark text-light py-3 mt-3">
+		<div class=" container-xl">&copy; 2023 Gonzalo García-Verdugo</div>
+	</footer>
+
+</body>
+</html>
