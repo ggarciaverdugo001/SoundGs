@@ -1,26 +1,78 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel='stylesheet' href='/webjars/bootstrap/css/bootstrap.min.css'>
+<style>
+ .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px; /* Ajusta el valor segÃºn tu contenido */
+        }
+        
+        </style>
 </head>
 <body>
-<h2>Resultados de la búsqueda</h2>
 
-<h3>Álbums</h3>
-<table>
+<nav
+		class="navbar navbar-expand-lg bg-body-primary sticky-top navbar-dark bg-dark"
+		data-bs-theme="dark">
+		<div class="container-xl">
+			<a class="navbar-brand" href="/" th:action="@{/}">SoundGs</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="#" th:href="@{/login}">Acceder</a>
+        <a class="nav-link" href="#" th:href="@{/register}">Registrarse</a>
+      </div>
+      <div class="container">
+      <div class="col-md-4 ms-auto">
+      <form  class="d-flex" role="search" th:action="@{/buscar}" method="get">
+      <input class="form-control me-2" type="text" name="busqueda" placeholder="Buscar Ã¡lbumes" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+    </div>
+    </div>
+    </div>
+		</div>
+	</nav>
+
+
+<div class="container-xxl">
+<h2 style="padding: 3% ; margin-top : 10px">Resultados de la bÃºsqueda</h2>
+<table class="table table-striped" style="margin-bottom : 44%">
   <thead>
     <tr>
-      <th>Título</th>
-      <th>Artista</th>
+      <th scope="col">Resultado</th>
+      <th scope="col">Tipo</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr th:each="album : ${albums}">
-      <td th:text="${album.nombre}"></td>
+    <tr th:each="resultado : ${resultados}">
+      <td th:text="${resultado.nombre}"></td>
+      <td th:text="${resultado.tipo}"></td>
+      <td>  <a th:href="@{'/' + ${resultado.tipo} + '/' + ${resultado.id}}">Ver detalles</a></td>
     </tr>
   </tbody>
+  
 </table>
+</div>
+
+
+
+
+	<footer class="bg-dark text-light py-3 mt-3" style="position: absolute;   bottom: 0; width: 100%;
+            height: 60px;">
+          
+		<div class=" container-xl">&copy; 2023 Gonzalo GarcÃ­a-Verdugo</div>
+	</footer>
 
 
 

@@ -14,4 +14,6 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 	List<Album> findByNombreContainingIgnoreCase(String nombre);
 	@Query("SELECT a FROM Album a JOIN a.generos g WHERE g.nombre = :nombreGenero")
 	   List<Album> findByNombreGenero(@Param("nombreGenero") String nombreGenero);
+	
+	List<Album> findByArtistasId(Long id); 
 	}

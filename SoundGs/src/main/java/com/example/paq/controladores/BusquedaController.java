@@ -1,5 +1,6 @@
 package com.example.paq.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.paq.entidades.Album;
 import com.example.paq.entidades.Artista;
 import com.example.paq.entidades.Cancion;
+import com.example.paq.entidades.ResultadosBusqueda;
 import com.example.paq.servicios.AlbumService;
 import com.example.paq.servicios.ArtistaService;
 import com.example.paq.servicios.CancionService;
@@ -34,9 +36,23 @@ public class BusquedaController {
 	    List<Artista> artistas = artistaServicio.buscaPorNombre(busqueda);
 	    List<Cancion> canciones = cancionServicio.buscaPorNombre(busqueda);
 
-	    model.addAttribute("albums", albums);
-	    model.addAttribute("artistas", artistas);
-	    model.addAttribute("canciones", canciones);
+	    List<ResultadosBusqueda> resultados = new ArrayList<>();
+	    if(artistas != null) {
+	    	 for(Artista a: artistas) {
+	 	    	ResultadosBusqueda r = new ResultadosBusqueda(a.getId(), "Artista", a.getNombre()); 
+	 	    	resultados.add(r); 
+	 	    }	
+	    }
+	   
+	    if(albums != null) {
+	    for(Album a: albums) {
+	    	ResultadosBusqueda r = new ResultadosBusqueda(a.getId(), "Album", a.getNombre()); 
+	    	resultados.add(r); 
+	    }
+	    }
+	    
+
+	    model.addAttribute("resultados", resultados);
 
 	    return "buscar";
 	  }

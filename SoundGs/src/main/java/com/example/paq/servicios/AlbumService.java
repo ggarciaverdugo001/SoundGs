@@ -21,4 +21,5 @@ public interface AlbumService {
 	
 	List<Album>buscaPorGenero(String genero);
 	
+	List<Album>buscaArtistaId(Long id);
 }

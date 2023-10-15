@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>canciones</title>
+<title>SoundGs</title>
 <link rel='stylesheet' href='/webjars/bootstrap/css/bootstrap.min.css'>
+<style>
+        /* Estilo personalizado para el sticky footer */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .content {
+            padding-bottom: 100px; /* Ajusta el valor según tu contenido */
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px; /* Ajusta el valor según tu contenido */
+        }
+    </style>
 </head>
 <body>
 	<nav
 		class="navbar navbar-expand-lg bg-body-primary sticky-top navbar-dark bg-dark"
 		data-bs-theme="dark">
 		<div class="container-xl">
-			<a class="navbar-brand" href="#">SoundGs</a>
+			<a class="navbar-brand" href="/" th:action="@{/}">SoundGs</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -18,15 +35,17 @@
 			</button>
 			 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <h4><a th:href="@{/login}">Click here to Login</a></h4>
+        <a class="nav-link" href="#" th:href="@{/login}">Acceder</a>
         <a class="nav-link" href="#" th:href="@{/register}">Registrarse</a>
       </div>
-      
-      <form class="d-flex" role="search" th:action="@{/buscar}" method="get">
-      <input class="form-control me-2" type="text" name="busqueda" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <div class="container">
+      <div class="col-md-4 ms-auto">
+      <form  class="d-flex" role="search" th:action="@{/buscar}" method="get">
+      <input class="form-control me-2" type="text" name="busqueda" placeholder="Buscar álbumes" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
+    </div>
+    </div>
     </div>
 		</div>
 	</nav>
@@ -50,13 +69,12 @@
 
 
 				<div class="card h-100" style="padding: 10px ; margin-top : 10px">
-					<img th:src="*{portada}" class="card-img-top" alt="...">
+				<a th:href="@{'/Album/' + *{Id}}">
+					<img th:src="*{portada}" class="card-img-top" alt="..."></a>
 					<div class="card-body">
 						<h5 class="card-title" th:text="*{nombre}">Card title</h5>
 						<p class="card-text" th:text=" Año + ': '+ *{#temporals.format(fecha, 'yyyy')}"></p>
-							<a class="btn btn-primary" th:href="@{/} + *{Id} " href="#">
-							Detalle 
-							</a>
+							
 							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
   <div class="btn-group me-2" role="group" aria-label="First group">
     <a th:href="@{'/valorar/' + *{Id} + '/1'}" href="#"  th:text="*{Id}"><button type="button" class="btn btn-primary">1</button></a>
@@ -69,12 +87,7 @@
 		</div>
     </div>
      
-  </div>
-
-
-<footer class="bg-dark text-light py-3 mt-3">
-<div class = " container-xl"> &copy; 2023 Gonzalo García-Verdugo </div>
-</footer>
+  </div></div>
 
 
 
@@ -86,9 +99,12 @@
 
 <script src="/js/filtro.js"></script>
 
+
+	<footer class="bg-dark text-light py-3 mt-3">
+		<div class=" container-xl">&copy; 2023 Gonzalo García-Verdugo</div>
+	</footer>
+
+
 </body>
 
-
-
-</body>
 </html>

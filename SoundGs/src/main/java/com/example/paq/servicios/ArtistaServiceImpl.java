@@ -51,8 +51,7 @@ public class ArtistaServiceImpl implements ArtistaService {
 
 	@Override
 	public List<Artista> buscaPorNombre(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findByNombreContainingIgnoreCase(nombre);
 	}
 
 }

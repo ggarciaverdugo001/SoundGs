@@ -63,7 +63,7 @@ public class AlbumController {
 		
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("Album/{id}")
 	public String mostrarDetalle(@PathVariable Long id, Model modelo) {
 		Album detalle = servicio.obtenerPorId(id);
 		detalle.setGeneros(new ArrayList<>(generoServicio.buscaPorAlbum(id)));

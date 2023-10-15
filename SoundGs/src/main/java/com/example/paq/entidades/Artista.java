@@ -42,6 +42,9 @@ public class Artista {
 	@Size(max = 2000)
 	private String biografia;
 	
+	@Size(min = 3, max = 10000)
+	private String imagen; 
+	
 	@NotNull
 	@NotBlank
 	 @ManyToMany(mappedBy = "artistas") 

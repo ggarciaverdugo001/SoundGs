@@ -51,5 +51,11 @@ public class AlbumServiceImpl implements AlbumService{
 	    return repo.findByNombreGenero(genero);
 	}
 
+	@Override
+	public List<Album> buscaArtistaId(Long id) {
+		
+		return repo.findByArtistasId(id);
+	}
+
 	
 }
