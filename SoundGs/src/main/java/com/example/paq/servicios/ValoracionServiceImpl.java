@@ -22,16 +22,41 @@ public class ValoracionServiceImpl implements ValoracionService {
 	
 	@Override
 	public void registrarValoracion(String user, Album album, int nota) {
-		 Valoracion valoracion = new Valoracion();
-	        valoracion.setUsuario(findByEmail(user)); // Asignar el usuario autenticado a la valoración
-	        valoracion.setAlbum(album);
-	        valoracion.setNota(nota);
-	        valoracionRepository.save(valoracion);
+		 
+		 User usuario = findByEmail(user); 
+		 Valoracion valoracionExiste = buscaPorAlbumUsuario(usuario, album);
+		 
+		 if(valoracionExiste  == null) {
+			 Valoracion valoracion = new Valoracion();
+			   valoracion.setUsuario(findByEmail(user)); // Asignar el usuario autenticado a la valoración
+		        valoracion.setAlbum(album);
+		        valoracion.setNota(nota);
+		        valoracionRepository.save(valoracion);
+		 }
+		 else {
+			 borraValoracion(valoracionExiste.getIdvaloracion());
+			 Valoracion valoracion = new Valoracion();
+			   valoracion.setUsuario(findByEmail(user)); // Asignar el usuario autenticado a la valoración
+		        valoracion.setAlbum(album);
+		        valoracion.setNota(nota);
+		        valoracionRepository.save(valoracion);
+			 
+		 }
+	     
 		
 	}
 	@Override 
 	public User findByEmail(String email) {
 		User usuario = repoUsuario.findByEmail(email);
-		return usuario; /* TODO document why this method is empty */ }
+		return usuario; }
+	@Override
+	public Valoracion buscaPorAlbumUsuario(User usuario, Album album) {
+		return valoracionRepository.findByUsuarioAndAlbum(usuario,album);
+	}
+	@Override
+	public void borraValoracion(Long id) {
+		
+		valoracionRepository.deleteById(id);
+	}
 
 }

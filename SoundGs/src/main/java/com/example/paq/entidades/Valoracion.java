@@ -13,7 +13,15 @@ public class Valoracion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idvaloracion;
-    @ManyToOne
+    public Long getIdvaloracion() {
+		return idvaloracion;
+	}
+
+	public void setIdvaloracion(Long idvaloracion) {
+		this.idvaloracion = idvaloracion;
+	}
+
+	@ManyToOne
     @JoinColumn(name = "iduser")
     private User usuario;
 
