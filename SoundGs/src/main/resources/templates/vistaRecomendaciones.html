@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<ul>
+        <li th:each="album : ${recomendaciones}">
+            <span th:text="${album.nombre}"></span>
+        </li>
+    </ul>
+</body>
+</html>
